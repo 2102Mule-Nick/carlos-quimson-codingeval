@@ -24,7 +24,7 @@ public class AddMenu implements Menu {
 	@Override
 	public Menu advance() {
 		// TODO Auto-generated method stub
-		return null;
+		return nextMenu;
 	}
 
 	@Override
