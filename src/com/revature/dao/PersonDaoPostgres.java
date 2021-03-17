@@ -22,7 +22,7 @@ public class PersonDaoPostgres implements PersonDao {
 		// TODO Auto-generated method stub
 		connection = ConnectionFactory.getConnection();
 		log.info("Connection: " + connection);
-		log.info("PersonDaoPostgres.add person called");
+		log.info("PersonDaoPostgres.getPersonByName person called");
 		
 		String stmt = "SELECT * FROM persons WHERE first_name = ? AND last_name = ?";
 		
