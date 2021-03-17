@@ -32,6 +32,30 @@ public class PersonDaoPostgres implements PersonDao {
 	public void removePerson(Person person) {
 		// TODO Auto-generated method stub
 
+		connection = ConnectionFactory.getConnection();
+		log.info("Connection: " + connection);
+		log.info("PersonDaoPostgres.add person called");
+		
+		String stmt = "DELETE FROM persons WHERE identifier = ? AND";
+		stmt += " first_name = ? AND last_name = ?";
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			log.info("Perparing Statement for PersonDaoPostgres.removePerson");
+			pstmt = connection.prepareStatement(stmt);
+			pstmt.setString(1, person.getIdentifier());
+			pstmt.setString(2, person.getFirstName());
+			pstmt.setString(3, person.getLastName());
+			
+			pstmt.execute();
+			log.info("Person removed");
+		}
+		catch (SQLException e) {
+			log.error("Unable to remove person from database", e);
+		}
+		
+		
 	}
 
 	@Override
@@ -46,13 +70,13 @@ public class PersonDaoPostgres implements PersonDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			System.out.println("Preparing statement");
+			log.info("Preparing statement");
 			pstmt = connection.prepareStatement(stmt);
 			pstmt.setString(1, person.getIdentifier());
 			pstmt.setString(2, person.getFirstName());
 			pstmt.setString(3, person.getLastName());
 			System.out.println("Statement created");
-			pstmt.executeUpdate();
+			pstmt.execute();
 			System.out.println("Person added");
 		}
 		catch (SQLException e) {

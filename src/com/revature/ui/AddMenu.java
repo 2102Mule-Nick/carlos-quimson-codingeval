@@ -11,8 +11,6 @@ public class AddMenu implements Menu {
 	
 	private Menu nextMenu;
 	
-	private Menu addMenu;
-	
 	private Menu deleteMenu;
 	
 	private Menu viewMenu;
