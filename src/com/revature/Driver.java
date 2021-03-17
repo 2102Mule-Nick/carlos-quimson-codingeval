@@ -8,6 +8,7 @@ import com.revature.ui.AddMenu;
 import com.revature.ui.DeleteMenu;
 import com.revature.ui.FirstMenu;
 import com.revature.ui.Menu;
+import com.revature.ui.ViewMenu;
 
 public class Driver {
 
@@ -34,6 +35,14 @@ public class Driver {
 		((DeleteMenu) deleteMenu).setFirstMenu(firstMenu);
 		
 		((FirstMenu) firstMenu).setDeleteMenu(deleteMenu);
+		
+		Menu viewMenu = new ViewMenu();
+		viewMenu.setScanner(scan);
+		((ViewMenu) viewMenu).setPersonDao(personDao);
+		((ViewMenu) viewMenu).setFirstMenu(firstMenu);
+		
+		((FirstMenu) firstMenu).setViewMenu(viewMenu);
+		
 		
 		Menu nextMenu = firstMenu;
 		

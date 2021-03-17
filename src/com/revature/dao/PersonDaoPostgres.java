@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,6 +20,34 @@ public class PersonDaoPostgres implements PersonDao {
 	@Override
 	public Person getPersonByName(Person person) {
 		// TODO Auto-generated method stub
+		connection = ConnectionFactory.getConnection();
+		log.info("Connection: " + connection);
+		log.info("PersonDaoPostgres.add person called");
+		
+		String stmt = "SELECT * FROM persons WHERE first_name = ? AND last_name = ?";
+		
+		PreparedStatement pstmt = null;
+		ResultSet result = null;
+		try {
+			pstmt = connection.prepareStatement(stmt);
+			pstmt.setString(1, person.getFirstName());
+			pstmt.setString(2, person.getLastName());
+			
+			result = pstmt.executeQuery();
+			
+			while (result.next()) {
+				Person resultPerson = new Person();
+				resultPerson.setFirstName(result.getString("first_name"));
+				resultPerson.setLastName(result.getString("last_name"));
+				resultPerson.setIdentifier(result.getString("identifier"));
+				return resultPerson;
+			}
+			
+		}
+		catch (SQLException e) {
+			log.error("Error getting person by name from PersonDaoPostgres", e);
+		}
+		
 		return null;
 	}
 
